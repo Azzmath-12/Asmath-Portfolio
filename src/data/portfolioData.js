@@ -78,7 +78,7 @@ export const skillsData = [
 ];
 
 export const projectsData = [
-  {
+ {
     id: 1,
     title: "Task Manager Application",
     category: "Full Stack",
@@ -91,6 +91,11 @@ export const projectsData = [
       "Search, filter, and priority level management",
       "Spring Boot RESTful API services connected with MySQL database",
       "Interactive React frontend interface with visual status indicators"
+    ],
+    highlights: [
+      "Full-stack REST API communication with Spring Boot backend & MySQL database",
+      "Interactive task creation, priority tracking, and status filtering UI",
+      "Stateful management with real-time UI updates upon CRUD operations"
     ],
     github: "https://github.com/Azzmath-12/Task-Manager-Frontend",
     liveDemo: "https://taskmanagerfrontend-sigma.vercel.app/",
@@ -110,6 +115,11 @@ export const projectsData = [
       "Efficient SQL query execution & PreparedStatements for security",
       "Robust Java exception handling for reliable data manipulation"
     ],
+    highlights: [
+      "Core Java JDBC architecture implementing PreparedStatements for SQL injection prevention",
+      "Modular DAO pattern for seamless database interaction with MySQL",
+      "Console-based menu interface with complete CRUD error handling"
+    ],
     github: "https://github.com/Azzmath-12/jdbc-crud-application",
     liveDemo: null,
     hasLiveDemo: false
@@ -127,6 +137,11 @@ export const projectsData = [
       "Modular & reusable React components for clean maintainability",
       "Client-side routing using React Router for smooth SPA navigation",
       "Responsive UI design principles delivered for seamless user experience"
+    ],
+    highlights: [
+      "React Single Page Application architecture built with Vite and React Router",
+      "State-driven dynamic student table with search and department filtering",
+      "Modular component hierarchy for reusable modal dialogs and form controls"
     ],
     github: "https://github.com/Azzmath-12/Student-Table-Management",
     liveDemo: null,

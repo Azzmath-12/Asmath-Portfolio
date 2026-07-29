@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
@@ -8,8 +9,9 @@ import Projects from './components/Projects';
 import Timeline from './components/Timeline';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import NotFound from './components/NotFound';
 
-function App() {
+function MainPortfolioLayout() {
   const [activeTab, setActiveTab] = useState('about');
 
   const renderActiveSection = () => {
@@ -31,16 +33,16 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#F8F9FC] text-[#1F2937] font-sans relative py-6 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-
+      
       {/* Main Container Layout */}
       <main className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start relative">
-
+        
         {/* Left Sidebar (Fixed on Desktop) */}
         <Sidebar />
 
         {/* Right Main Content Panel */}
         <div className="flex-1 w-full bg-[#FFFFFF] rounded-2xl border border-[#E5E7EB] shadow-sm relative min-h-[600px] flex flex-col justify-between overflow-hidden">
-
+          
           {/* Top Sticky Navbar */}
           <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
@@ -61,6 +63,15 @@ function App() {
       </main>
 
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<MainPortfolioLayout />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 

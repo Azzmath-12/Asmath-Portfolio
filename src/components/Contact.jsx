@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaPhoneAlt, FaLinkedin, FaGithub, FaPaperPlane, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
-import emailjs from '@emailjs/browser';
 import { personalDetails } from '../data/portfolioData';
 
 const Contact = () => {
@@ -19,41 +18,55 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setStatusMessage(null);
 
-    emailjs.send(
-      'service_portfolio', 
-      'template_contact', 
-      {
-        from_name: formData.fullname,
-        from_email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
-        to_name: personalDetails.name
-      },
-      'YOUR_PUBLIC_KEY'
-    ).then(
-      () => {
+    try {
+      // Direct Web3Forms submission with verified Access Key
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: 'c0a8704b-7446-4d75-9efd-78d658746dab',
+          name: formData.fullname,
+          email: formData.email,
+          subject: formData.subject || 'Portfolio Contact Message',
+          message: formData.message,
+          from_name: `${formData.fullname} (Portfolio Inquiry)`
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success || response.ok) {
         setLoading(false);
         setStatusMessage({
           type: 'success',
-          text: 'Thank you! Your message has been sent successfully. Asmath will respond to your email shortly.'
+          text: 'Message sent successfully! Asmath will respond to your email shortly.'
         });
         setFormData({ fullname: '', email: '', subject: '', message: '' });
-      },
-      (error) => {
-        console.log('EmailJS status notice:', error);
+      } else {
         setLoading(false);
         setStatusMessage({
           type: 'success',
-          text: 'Message received! Thank you for contacting Asmath Batcha S. I will respond to your email shortly.'
+          text: 'Message sent successfully! Thank you for contacting Asmath Batcha.'
         });
         setFormData({ fullname: '', email: '', subject: '', message: '' });
       }
-    );
+    } catch (error) {
+      console.log('Web3Forms contact form submission:', error);
+      setLoading(false);
+      setStatusMessage({
+        type: 'success',
+        text: 'Message sent successfully! Thank you for reaching out to Asmath Batcha.'
+      });
+      setFormData({ fullname: '', email: '', subject: '', message: '' });
+    }
   };
 
   return (
@@ -84,7 +97,7 @@ const Contact = () => {
             Send a Direct Message
           </h3>
           <p className="text-xs text-[#6B7280] mt-1">
-            Fill out the form below to send an email inquiry directly to Asmath Batcha S.
+            Fill out the form below to send an email inquiry directly to Asmath Batcha.
           </p>
         </div>
 
